@@ -2,7 +2,7 @@ import React from 'react';
 import { FlatList, View, Image, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { List, Divider } from 'react-native-paper';
-function Calendario({ excursiones }) {
+function Calendario({ excursiones, onPress }) {
     const renderCalendarioItem = ({ item }) => {
         return (
             <View>
@@ -11,6 +11,7 @@ function Calendario({ excursiones }) {
                     description={item.descripcion}
                     titleNumberOfLines={0}
                     descriptionNumberOfLines={6}
+                    onPress={() => onPress(item.id)}
                     left={(props) => (
                         <Image
                             source={require('./imagenes/40Años.png')}
