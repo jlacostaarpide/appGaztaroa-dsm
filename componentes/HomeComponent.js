@@ -1,10 +1,14 @@
 import { Component } from 'react';
 import { ScrollView, View, ImageBackground, StyleSheet } from 'react-native';
 import { Card, Text } from 'react-native-paper';
-import { EXCURSIONES } from '../comun/excursiones';
-import { CABECERAS } from '../comun/cabeceras';
-import { ACTIVIDADES } from '../comun/actividades';
+import { connect } from 'react-redux';
 import { baseUrl } from '../comun/comun';
+
+const mapStateToProps = (state) => ({
+  excursiones: state.excursiones,
+  cabeceras: state.cabeceras,
+  actividades: state.actividades,
+});
 
 function RenderItem({ item }) {
   if (!item) {
@@ -29,21 +33,12 @@ function RenderItem({ item }) {
 }
 
 class Home extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      excursiones: EXCURSIONES,
-      cabeceras: CABECERAS,
-      actividades: ACTIVIDADES,
-    };
-  }
-
   render() {
     return (
       <ScrollView>
-        <RenderItem item={this.state.cabeceras.filter((item) => item.destacado)[0]} />
-        <RenderItem item={this.state.excursiones.filter((item) => item.destacado)[0]} />
-        <RenderItem item={this.state.actividades.filter((item) => item.destacado)[0]} />
+        <RenderItem item={this.props.cabeceras.cabeceras.filter((item) => item.destacado)[0]} />
+        <RenderItem item={this.props.excursiones.excursiones.filter((item) => item.destacado)[0]} />
+        <RenderItem item={this.props.actividades.actividades.filter((item) => item.destacado)[0]} />
       </ScrollView>
     );
   }
@@ -71,4 +66,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default connect(mapStateToProps)(Home);
